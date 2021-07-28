@@ -13,7 +13,7 @@ namespace Lab3_2
             menu["banana"] = 0.50m;
             menu["apple"] = 0.25m;
             menu["watermelon"] = 10.00m;
-            menu["green Pepper"] = 1.00m;
+            menu["green pepper"] = 1.00m;
 
             //list the menu when ur program begins
             Console.WriteLine("\nMenu: ");
@@ -29,17 +29,29 @@ namespace Lab3_2
             bool picking = false;
             while (picking == false)
             {
-                Console.WriteLine("\nWhich would you like to do?");
-                Console.WriteLine("\nA. Add a new item" + "\nR. Remove an item" + "\nC. Change an item's price" + "\nQ. Quit");
-                string choice = Console.ReadLine().ToLower();
+                string choice;
+                do
+                {
+                    Console.WriteLine("\nWhich would you like to do?");
+                    Console.WriteLine("\nA. Add a new item" + "\nR. Remove an item" + "\nC. Change an item's price" + "\nQ. Quit");
+                    choice = Console.ReadLine().ToLower();
+                }
+                while (choice != "a" && choice != "r" && choice != "c" && choice != "q");
 
                 if (choice == "a")
                 {
                     Console.WriteLine("What is the name of the item you would like to add?");
                     string additem = Console.ReadLine().ToLower();
-                    Console.WriteLine("What is the price of the item?");
-                    decimal addprice = decimal.Parse(Console.ReadLine());
-                    menu.Add(additem, addprice);
+                    if (menu.ContainsKey(additem))
+                    {
+                        Console.WriteLine("\nThis item already exists. Please try again.");
+                    }
+                    else if (!menu.ContainsKey(additem))
+                    {
+                        Console.WriteLine("What is the price of the item?");
+                        decimal addprice = decimal.Parse(Console.ReadLine());
+                        menu.Add(additem, addprice);
+                    }
                     Console.WriteLine("\nMenu: ");
             foreach (var pair in menu)
             {
@@ -50,8 +62,15 @@ namespace Lab3_2
                 {
                     Console.WriteLine("What is the name of the item you would like to remove?");
                     string removename = Console.ReadLine();
-                    menu.Remove(removename);
-                    Console.WriteLine("\nMenu: ");
+                    if (menu.ContainsKey(removename))
+                    {
+                        menu.Remove(removename);
+                    }
+                    else if (!menu.ContainsKey(removename))
+                    {
+                        Console.WriteLine("\nThat item does not exist in the menu. Please try again");
+                    }
+                        Console.WriteLine("\nMenu: ");
                     foreach (var pair in menu)
                     {
                         Console.WriteLine($"{pair.Key}.....{pair.Value}");
@@ -68,12 +87,17 @@ namespace Lab3_2
                         Console.WriteLine($"The current price of {updateitem} is {value}");
                         Console.WriteLine("What is the  new price of the item?");
                         decimal addprice = decimal.Parse(Console.ReadLine());
-                        menu.Add(updateitem,addprice);
+                        menu[updateitem] = addprice;
 
+                        Console.WriteLine("\nMenu: ");
+                        foreach (var pair in menu)
+                        {
+                            Console.WriteLine($"{pair.Key}.....{pair.Value}");
+                        }
                     }
                     else if (!menu.ContainsKey(updateitem))
                     {
-                        Console.WriteLine("this item doesn't exist");
+                        Console.WriteLine("\nThis item doesn't exist. Plese try again.");
                     }
                 }
                 else if (choice == "q")
