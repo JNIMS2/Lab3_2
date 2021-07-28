@@ -39,13 +39,23 @@ namespace Lab3_2
                     string additem = Console.ReadLine().ToLower();
                     Console.WriteLine("What is the price of the item?");
                     decimal addprice = decimal.Parse(Console.ReadLine());
-                    Console.WriteLine(additem);
-                    Console.WriteLine(addprice);
+                    menu.Add(additem, addprice);
+                    Console.WriteLine("\nMenu: ");
+            foreach (var pair in menu)
+            {
+            Console.WriteLine($"{pair.Key}.....{pair.Value}");
+            }
                 }
                 else if (choice == "r")
                 {
                     Console.WriteLine("What is the name of the item you would like to remove?");
                     string removename = Console.ReadLine();
+                    menu.Remove(removename);
+                    Console.WriteLine("\nMenu: ");
+                    foreach (var pair in menu)
+                    {
+                        Console.WriteLine($"{pair.Key}.....{pair.Value}");
+                    }
                 }
                 else if (choice == "c")
                 {
@@ -53,8 +63,12 @@ namespace Lab3_2
                     string updateitem = Console.ReadLine().ToLower();
                     if (!menu.ContainsKey(updateitem))
                     {
-                        Console.WriteLine();
+                        Console.WriteLine("This item exists");
                     }//i'm stuck here rn
+                    else
+                    {
+                        Console.WriteLine("this item doesn't exist");
+                    }
                 }
                 else if (choice == "q")
                 {
