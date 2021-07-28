@@ -66,6 +66,10 @@ namespace Lab3_2
                        decimal value = menu[updateitem];
                         //Console.WriteLine("This item exists");
                         Console.WriteLine($"The current price of {updateitem} is {value}");
+                        Console.WriteLine("What is the  new price of the item?");
+                        decimal addprice = decimal.Parse(Console.ReadLine());
+                        menu.Add(updateitem,addprice);
+
                     }
                     else if (!menu.ContainsKey(updateitem))
                     {
