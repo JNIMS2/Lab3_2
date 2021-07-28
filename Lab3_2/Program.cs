@@ -61,11 +61,13 @@ namespace Lab3_2
                 {
                     Console.WriteLine("What is the name of the item you would like to update?");
                     string updateitem = Console.ReadLine().ToLower();
-                    if (!menu.ContainsKey(updateitem))
+                    if (menu.ContainsKey(updateitem))
                     {
-                        Console.WriteLine("This item exists");
-                    }//i'm stuck here rn
-                    else
+                       decimal value = menu[updateitem];
+                        //Console.WriteLine("This item exists");
+                        Console.WriteLine($"The current price of {updateitem} is {value}");
+                    }
+                    else if (!menu.ContainsKey(updateitem))
                     {
                         Console.WriteLine("this item doesn't exist");
                     }
